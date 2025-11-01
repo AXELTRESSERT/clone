@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>create by @cloneganteng1</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #e6f2ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Login Form Styles */
+        .login-container {
+            background-color: #87ceeb;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .login-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .login-btn:hover {
+            background-color: #3a7bc8;
+        }
+
+        /* Dashboard Styles */
+        .dashboard {
+            display: none;
+            width: 100%;
+        }
+
+        .dashboard-header {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        .welcome-box {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .welcome-box p {
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .panel-form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .panel-form h3 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .create-btn {
+            padding: 12px 25px;
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .create-btn:hover {
+            background-color: #3a7bc8;
+        }
+
+        .result-box {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .result-box h3 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .result-box p {
+            margin-bottom: 10px;
+            padding: 8px;
+            background-color: #f0f8ff;
+            border-radius: 5px;
+        }
+
+        .settings-form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .settings-form h3 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .setting-btn {
+            padding: 12px 25px;
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .setting-btn:hover {
+            background-color: #3a7bc8;
+        }
+
+        /* Alert Styles */
+        .alert {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 5px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: none;
+            z-index: 1000;
+        }
+
+        .alert.error {
+            background-color: #f44336;
+        }
+
+        .dashboard-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://files.catbox.moe/8guah3.jpg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.1;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-bg"></div>
+    
+    <div class="container">
+        <!-- Login Form -->
+        <div class="login-container" id="loginContainer">
+            <h2>login panel bos</h2>
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" placeholder="Masukkan username">
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" placeholder="Masukkan password">
+            </div>
+            <button class="login-btn" onclick="login()">Login</button>
+        </div>
+
+        <!-- Dashboard -->
+        <div class="dashboard" id="dashboard">
+            <!-- Header -->
+            <div class="dashboard-header">
+                <img src="https://files.catbox.moe/merdfa.jpg" alt="Logo" class="logo">
+                <h1>apk create panel by clone</h1>
+            </div>
+
+            <!-- Welcome Box -->
+            <div class="welcome-box">
+                <p>( 👋 ) konichiwa <span id="displayUsername">user</span> こんにちは、apk作成パネルへようこそ。@cloneganteng1</p>
+                <p>==========================</p>
+            </div>
+
+            <!-- Create Panel Form -->
+            <div class="panel-form">
+                <h3>Create Panel</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="panelUsername">Username:</label>
+                        <input type="text" id="panelUsername" placeholder="Masukkan username panel">
+                    </div>
+                    <div class="form-group">
+                        <label for="panelPassword">Password:</label>
+                        <input type="password" id="panelPassword" placeholder="Masukkan password panel">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="type">Type:</label>
+                        <select id="type">
+                            <option value="1gb">1GB</option>
+                            <option value="2gb">2GB</option>
+                            <option value="3gb">3GB</option>
+                            <option value="4gb">4GB</option>
+                            <option value="5gb">5GB</option>
+                            <option value="6gb">6GB</option>
+                            <option value="7gb">7GB</option>
+                            <option value="8gb">8GB</option>
+                            <option value="9gb">9GB</option>
+                            <option value="10gb">10GB</option>
+                            <option value="unli">Unli</option>
+                            <option value="admin">Admin Panel</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="eggType">Type Egg:</label>
+                        <select id="eggType">
+                            <option value="minecraft">Minecraft</option>
+                            <option value="botwa">Botwa Tele</option>
+                            <option value="java">Java</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="create-btn" onclick="createPanel()">Create Panel</button>
+            </div>
+
+            <!-- Result Box -->
+            <div class="result-box" id="resultBox">
+                <h3>berikut adalah data panel anda</h3>
+                <p>Username: <span id="resultUsername"></span></p>
+                <p>Password: <span id="resultPassword"></span></p>
+                <p>Type: <span id="resultType"></span></p>
+                <p>Type Egg: <span id="resultEggType"></span></p>
+                <p>Status: Berhasil</p>
+                <p>Domain: <span id="resultDomain"></span></p>
+            </div>
+
+            <!-- Settings Form -->
+            <div class="settings-form">
+                <h3>Setting Menu</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="plta">PLTA:</label>
+                        <input type="text" id="plta" placeholder="Masukkan PLTA">
+                    </div>
+                    <div class="form-group">
+                        <label for="pltc">PLTC:</label>
+                        <input type="text" id="pltc" placeholder="Masukkan PLTC">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="apiKey">API Key:</label>
+                        <input type="text" id="apiKey" placeholder="Masukkan API Key">
+                    </div>
+                    <div class="form-group">
+                        <label for="domain">Domain:</label>
+                        <input type="text" id="domain" placeholder="Masukkan Domain">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="panelPasswordSetting">Password Panel:</label>
+                    <input type="password" id="panelPasswordSetting" placeholder="Masukkan Password Panel">
+                </div>
+                <button class="setting-btn" onclick="saveSettings()">Setting</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alert -->
+    <div class="alert" id="alert"></div>
+
+    <script>
+        // Global variables
+        let currentDomain = "";
+
+        // Login function
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (username === 'buyer' && password === 'only') {
+                document.getElementById('loginContainer').style.display = 'none';
+                document.getElementById('dashboard').style.display = 'block';
+                document.getElementById('displayUsername').textContent = username;
+                showAlert('Login berhasil!', 'success');
+            } else {
+                showAlert('Username atau password salah!', 'error');
+            }
+        }
+
+        // Create panel function
+        function createPanel() {
+            const panelUsername = document.getElementById('panelUsername').value;
+            const panelPassword = document.getElementById('panelPassword').value;
+            const type = document.getElementById('type').value;
+            const eggType = document.getElementById('eggType').value;
+            
+            if (!panelUsername || !panelPassword) {
+                showAlert('Username dan password panel harus diisi!', 'error');
+                return;
+            }
+            
+            // Use domain from settings
+            const domain = currentDomain || "Belum diatur";
+            
+            // Display result
+            document.getElementById('resultUsername').textContent = panelUsername;
+            document.getElementById('resultPassword').textContent = panelPassword;
+            document.getElementById('resultType').textContent = type;
+            document.getElementById('resultEggType').textContent = eggType;
+            document.getElementById('resultDomain').textContent = domain;
+            
+            // Show result box
+            document.getElementById('resultBox').style.display = 'block';
+            
+            showAlert('Succes create panel');
+        }
+
+        // Save settings function
+        function saveSettings() {
+            const plta = document.getElementById('plta').value;
+            const pltc = document.getElementById('pltc').value;
+            const apiKey = document.getElementById('apiKey').value;
+            const domain = document.getElementById('domain').value;
+            const panelPasswordSetting = document.getElementById('panelPasswordSetting').value;
+            
+            if (!plta || !pltc || !apiKey || !domain || !panelPasswordSetting) {
+                showAlert('Semua field harus diisi!', 'error');
+                return;
+            }
+            
+            // Save domain for use in create panel
+            currentDomain = domain;
+            
+            showAlert('Succes set seting ke apk');
+        }
+
+        // Show alert function
+        function showAlert(message, type = 'success') {
+            const alert = document.getElementById('alert');
+            alert.textContent = message;
+            alert.className = 'alert';
+            
+            if (type === 'error') {
+                alert.classList.add('error');
+            }
+            
+            alert.style.display = 'block';
+            
+            setTimeout(() => {
+                alert.style.display = 'none';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
